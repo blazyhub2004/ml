@@ -4,17 +4,14 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from sklearn.datasets import fetch_california_housing
 
-# Load data
 df = fetch_california_housing(as_frame=True).frame
 num_cols = df.select_dtypes(include=np.number).columns
 
-# Histograms
 df[num_cols].hist(bins=30, figsize=(15, 10), layout=(3, 3), color='skyblue', edgecolor='black')
 plt.suptitle("Histograms of Numerical Features", fontsize=16)
 plt.tight_layout()
 plt.show()
 
-# Box plots
 plt.figure(figsize=(15, 10))
 for i, col in enumerate(num_cols):
     plt.subplot(3, 3, i + 1)
@@ -23,7 +20,6 @@ for i, col in enumerate(num_cols):
 plt.tight_layout()
 plt.show()
 
-# Outlier detection
 print("Outliers Detection:")
 for col in num_cols:
     Q1, Q3 = df[col].quantile([0.25, 0.75])
@@ -32,6 +28,5 @@ for col in num_cols:
     outliers = df[(df[col] < lower) | (df[col] > upper)]
     print(f"{col}: {len(outliers)} outliers")
 
-# Summary
 print("\nDataset Summary:")
 print(df.describe())
